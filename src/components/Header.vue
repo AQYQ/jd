@@ -4,7 +4,21 @@
             <ul class="fl">
                 <li>北京</li>
             </ul>
-            <ul class="fr"></ul>
+            <ul class="fr">
+                <li>
+                    <a>你好，请登录</a>
+                    <a>免费注册</a>
+                    <!-- <router-link></router-link>
+                    <router-link></router-link> -->
+                </li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </div>
     </div>
 </template>
