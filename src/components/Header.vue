@@ -2,7 +2,7 @@
     <div id="shortcut">
         <div class="main">
             <ul class="fl">
-                <li>北京</li>
+                <li>{{city}}</li>
             </ul>
             <ul class="fr">
                 <li>
@@ -43,3 +43,35 @@
         float: right;
     }
 </style>
+<script>
+import getCurrentCityName from "@/utils/getUserLocation";
+import {mapState} from "vuex";
+export default {
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        getCurrentCity(){
+            console.log(getCurrentCityName(),'getCurrentCityName');
+            this.$store.state.city || getCurrentCityName().then((city) =>{
+                console.log(city,'city');
+                city =city.slice(0,city.length-1);
+                this.$store.commit("commitCity",city)
+            })
+        }
+    },
+    created(){
+
+    },
+    mounted(){
+        this.getCurrentCity();
+    },
+    computed:{
+        ...mapState([
+            'city',
+        ])
+    }
+}
+</script>
