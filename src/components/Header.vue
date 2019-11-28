@@ -2,115 +2,81 @@
     <div id="shortcut">
         <div class="main">
             <ul class="fl">
-                <li>北京</li>
+                <li >
+                    <i class="el-icon-location" style="color: red;font-size: 14px;"></i>
+                     &nbsp; &nbsp;{{city}}
+                </li>
             </ul>
-            <ul class="fr">
-                <li id="ttbar-login" class="shortcut_btn fore1 dropdown">
-                    <a class="link-login">你好，请登录</a>
-                    &nbsp;&nbsp;
-                    <a class="link-regist style-red">免费注册</a>
-                    <!-- <router-link></router-link>
-                    <router-link></router-link> -->
-                </li>
-                <li class="spacer"></li>
-
-                <li class="shortcut_btn fore2">
-                    <div class="dt">
-                        <a>我的订单</a>
-                    </div>
-                </li>
-                <li class="spacer"></li>
-
-                <li id="ttbar-myjd" class="shortcut_btn fore3 dropdown">
-                    <div class="dt cw-icon">
-                        <a>我的京东</a>
-                    </div>
-                    <div class="dd dropdown-layer">
-                        <div class="myjdlist">
-                            <div class="fore1">
-                                <div class="item">
-                                    <a>
-                                        待处理订单
-                                        <span class="shortcut_num style-red"></span>
-                                    </a>
-                                </div>
-                                <div class="item">
-                                    <a>返修退换货</a>
-                                </div>
-                                <div class="item">
-                                    <a>
-                                        降价商品
-                                        <span class="shortcut_num style-red"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="fore2">
-                                <div class="item">
-                                    <a>
-                                        消息
-                                        <span class="shortcut_num style-red"></span>
-                                    </a>
-                                </div>
-                                <div class="item">
-                                    <a>
-                                        我的问答
-                                        <span class="shortcut_num style-red"></span>
-                                    </a>
-                                </div>
-                                <div class="item">
-                                    <a>我的关注</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="myjdlist myjdlist_2">
-                            <div class="fore1">
-                                <div class="item">
-                                    <a>我的京豆</a>
-                                </div>
-                                <div class="item baitiao">
-                                    <a>我的白条</a>
-                                </div>
-                            </div>
-                            <div class="fore2">
-                                <div class="item">
-                                    <a>
-                                        我的优惠券
-                                        <span class="shortcut_num style-red"></span>
-                                    </a>
-                                </div>
-                                <div class="item">
-                                    <a>我的理财</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="spacer"></li>
-
-                <li class="shortcut_btn fore4">
-                    <div class="dt">
-                        <a>京东会员</a>
-                    </div>
-                </li>
-                <li class="spacer"></li>
-
-                <li class="shortcut_btn fore5 dropdown className shortcut_btn_company">
-                    
-                </li>
-                <li class="spacer"></li>
-                
-                <li id="ttbar-serv" class="shortcut_btn fore8 dropdown"></li>
-                <li class="spacer"></li>
-                
-                <li id="ttbar-navs" class="shortcut_btn fore9 dropdown"></li>
-                <li class="spacer"></li>
-
-                <li id="J_mobile" class="shortcut_btn fore10 mobile"></li>
-            </ul>
+            <div class="fr">
+                <span>
+                    <span id="link-login">
+                        <router-link class="link-login" :to="{ path: '/' }">
+                            你好，请登录
+                        </router-link>&nbsp;&nbsp;
+                        <router-link class="link-regist style-red" :to="{ path: '/' }">
+                            免费注册
+                        </router-link>
+                    </span>
+                    <span class="navList">
+                        <el-breadcrumb separator="|" style="font-weight:100;line-height:30px;float: right;font-size: 12px;">
+                            <el-breadcrumb-item v-for="(item,index) in navList" > 
+                                <span class="paddingClass" 
+                                          :class="overIndex == index && index == 2 ? 'bgColor' : overIndex == index && index == 4 ? 'bgColor' :
+                                          overIndex == index && index == 5 ? 'bgColor' : overIndex == index && index == 6 ? 'bgColor' :''">
+                                    <span @mouseover="changeColor($event,index)" 
+                                          @mouseleave="backColor"
+                                    :class="{overColor:overIndex == index && index != 5 && index != 6 && index != 7}">
+                                    {{item}} 
+                                    </span>
+                                    <i class="el-icon-arrow-down" 
+                                    v-if="index == 2 || index == 4 || index == 5 || index == 6 ">
+                                    </i>
+                                </span>
+                            </el-breadcrumb-item>
+                        </el-breadcrumb>
+                    </span>
+                </span>
+            </div>
         </div>
     </div>
 </template>
 <style>
+    .paddingClass{
+        padding: 0 3px;
+    }
+    span{
+        display: inline-block;
+    }
+    .bgColor{
+        background-color: white;
+        display: inline-block;
+        height: 30px;
+    }
+    .overColor{
+        display: inline-block;
+        color: red;
+    }
+    .navList:hover{
+        cursor: pointer;
+    }
+    .link-login{
+        font-size: 12px;
+        margin-right: 3px;
+    }
+    .link-login:hover{
+        color: red;
+        cursor: pointer;
+    }
+    #link-login{
+        float: left;
+    }
+    .link-regist:hover{
+        cursor: pointer;
+    }
+    .style-red{
+        color: red;
+        margin-right: 4px;
+    }
     #shortcut{
         border-bottom: 1px solid #ddd;
         background-color: #e3e4e5;
@@ -123,81 +89,58 @@
         margin: auto;
     }
     .fl, #shortcut li{
+        line-height: 34px;
         float: left;
+    }
+    .fl li{
+        font-size: 12px;
     }
     .fr{
         float: right;
     }
-    /* 小竖线 */
-    #shortcut li.spacer {
-        overflow: hidden;
-        margin: 11px 5px 0;
-        width: 1px;
-        height: 10px;
-        background-color: #ccc;
+    .fr .el-icon-arrow-down {
+        font-size: 1px!important;
+        margin-left: 5px;
     }
-    #ttbar-login {
-        margin-right: 8px;
-        z-index: 20;
-    }
-    .dorpdown, .shortcut_btn, .mobile {
-        position: relative;
-        z-index: 21;
-    }
-    #shortcut a {
-        color: #999;
-    }
-    #shortcut .dt {
-        padding-left: 7px;
-        padding-right: 7px;
-    }
-    #shortcut .cw-icon {
-        height: 28px;
-        line-height: 28px;
-    }
-    .cw-icon {
-        overflow: hidden;
-        position: relative;
-        z-index: 1;
-        float: left;
-        border: 1px solid #e3e4e5;
-    }
-    .fr .cw-icon {
-        padding-right: 20px!important;
-    }
-    #ttbar-myjd .dorpdown-layer, #ttbar-myjd .dropdown-layer {
-        left: 0;
-        width: 280px;
-    }
-    #shortcut .dorpdown-layer, #shortcut .dropdown-layer {
-        top: 30px;
-    }
-    #shortcut .dd {
-        line-height: 24px;
-    }
-    .dorpdown-layer, .dropdown-layer {
-        display: none;
-        position: absolute;
-        border: 1px solid #ccc;
-        background-color: #fff;
-        -webkit-box-shadow: 1px 2px 1px rgba(0,0,0,.1);
-        box-shadow: 1px 2px 1px rgba(0,0,0,.1);
-    }
-    #ttbar-myjd .myjdlist {
-        padding: 10px 0 10px 15px;
-        overflow: hidden;
-    }
-    #ttbar-myjd .myjdlist .fore1, #ttbar-myjd .myjdlist .fore2 {
-        float: left;
-        width: 126px;
-    }
-    #shortcut .style-red {
-        color: #f10215;
-    }
-    .shortcut_num {
-        margin-left: 4px;
-    }
-    #ttbar-myjd .myjdlist_2 {
-        border-top: 1px solid #f1f1f1;
-    }
+
 </style>
+<script>
+    import getCurrentCityName from "@/utils/getUserLocation";
+    import {mapState} from "vuex";
+    export default {
+        data(){
+            return{
+                activeIndex: '1',
+                navList:['','我的订单','我的京东','京东会员','企业采购','客户服务','网站导航','手机京东'],
+                overIndex:-1,
+            }
+        },
+        methods:{
+            getCurrentCity(){
+                console.log(getCurrentCityName(),'getCurrentCityName');
+                this.$store.state.city || getCurrentCityName().then((city) =>{
+                    console.log(city,'city');
+                    city =city.slice(0,city.length-1);
+                    this.$store.commit("commitCity",city)
+                })
+            },
+            changeColor(e,index){
+                this.overIndex = index;
+            },
+            backColor(){
+                this.overIndex = -1;
+            }
+        },
+        created(){
+    
+        },
+        mounted(){
+            this.getCurrentCity();
+        },
+        computed:{
+            ...mapState([
+                'city',
+            ])
+        }
+    }
+    </script>
