@@ -12,19 +12,39 @@
                         <router-link class="link-regist style-red" :to="{ path: '/' }">免费注册</router-link>
                     </span>
                     <span class="navList">
-                        <el-breadcrumb separator="|" style="font-weight:100;line-height:30px;float: right;font-size: 12px;">
+                        <el-breadcrumb separator="|" style="font-weight:100;line-height:34px;float: right;font-size: 12px;">
                             <el-breadcrumb-item v-for="(item,index) in navList" > 
                                 <span class="paddingClass" 
                                           :class="overIndex == index && index == 2 ? 'bgColor' : overIndex == index && index == 4 ? 'bgColor' :
                                           overIndex == index && index == 5 ? 'bgColor' : overIndex == index && index == 6 ? 'bgColor' :''">
                                     <span @mouseover="changeColor($event,index)" 
-                                          @mouseleave="backColor"
+                                          @mouseleave="backColor(index)"
                                     :class="{overColor:overIndex == index && index != 5 && index != 6 && index != 7}">
                                     {{item}} 
                                     </span>
-                                    <i class="el-icon-arrow-down" 
+                                    <i class="el-icon-arrow-down"  @mouseover = "changeColor($event,index)" @mouseleave="backColor(index)"
                                     v-if="index == 2 || index == 4 || index == 5 || index == 6 ">
                                     </i>
+                                    <div class="PurchaseBox" v-if="index == 4 && overIndex == index || Purchasebool == true && overIndex == index ">
+                                        <table class="PurchaseTable">
+                                            <tr>
+                                                <td>
+                                                    企业购
+                                                </td>
+                                                <td>
+                                                    商用场景馆
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    工业品
+                                                </td>
+                                                <td>
+                                                    礼品卡
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </span>
                             </el-breadcrumb-item>
                         </el-breadcrumb>
@@ -35,8 +55,32 @@
     </div>
 </template>
 <style>
+    /* Purchase采购 */
+    .PurchaseBox{
+        position: absolute;
+        bottom: -80px;
+        left: 0px;
+    }
+    .PurchaseTable{
+        width: 150px;
+        color: darkgray;
+        height: 80px;
+        border: 1px solid darkgray;
+        border-top: none;
+        box-sizing: border-box;
+    }
+    .PurchaseTable tr td:nth-child(1){
+        width: 40%;
+        height: 50%;
+    }
+    .PurchaseTable tr td:nth-child(2){
+        width: 60%;
+        height: 50%;
+    }
     .paddingClass{
-        padding: 0 3px;
+        color: darkgray;
+        position: relative;
+        padding: 0 4px;
     }
     span{
         display: inline-block;
@@ -56,6 +100,7 @@
     .link-login{
         font-size: 12px;
         margin-right: 3px;
+        color: darkgray;
     }
     .link-login:hover{
         color: red;
@@ -77,7 +122,7 @@
     }
     #shortcut .main{
         height: 30px;
-        line-height: 30px;
+        line-height: 34px;
         color: #999;
         width: 1190px;
         margin: auto;
@@ -91,6 +136,7 @@
     }
     .fr{
         float: right;
+        margin-right: 20px;
     }
 
 </style>
@@ -103,6 +149,7 @@
                 activeIndex: '1',
                 navList:['','我的订单','我的京东','京东会员','企业采购','客户服务','网站导航','手机京东'],
                 overIndex:-1,
+                Purchasebool:false,
             }
         },
         methods:{
@@ -116,9 +163,19 @@
             },
             changeColor(e,index){
                 this.overIndex = index;
+                if(index == 4){
+                    this.Purchasebool = true;
+                }else{
+                    this.Purchasebool = false;
+                }
             },
-            backColor(){
-                this.overIndex = -1;
+            backColor(index){
+                if(index == 4){
+                    this.overIndex = 4;
+                    this.Purchasebool = true;
+                }else{
+                    this.overIndex = -1;
+                }
             }
         },
         created(){
