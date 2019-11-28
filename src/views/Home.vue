@@ -20,6 +20,10 @@ ul{
 }
 a{
     text-decoration: none;
+    color: #999;
+}
+em, i {
+    font-style: normal;
 }
 
 </style>

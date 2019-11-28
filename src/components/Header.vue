@@ -2,14 +2,20 @@
     <div id="shortcut">
         <div class="main">
             <ul class="fl">
-                <li ><i class="el-icon-location" style="color: red;font-size: 14px;"></i> &nbsp; &nbsp;{{city}}</li>
+                <li >
+                    <i class="el-icon-location" style="color: red;font-size: 14px;"></i>
+                     &nbsp; &nbsp;{{city}}
+                </li>
             </ul>
             <div class="fr">
                 <span>
                     <span id="link-login">
-                        <router-link class="link-login" :to="{ path: '/' }">你好，请登录</router-link>
-                        &nbsp;&nbsp;
-                        <router-link class="link-regist style-red" :to="{ path: '/' }">免费注册</router-link>
+                        <router-link class="link-login" :to="{ path: '/' }">
+                            你好，请登录
+                        </router-link>&nbsp;&nbsp;
+                        <router-link class="link-regist style-red" :to="{ path: '/' }">
+                            免费注册
+                        </router-link>
                     </span>
                     <span class="navList">
                         <el-breadcrumb separator="|" style="font-weight:100;line-height:30px;float: right;font-size: 12px;">
@@ -91,6 +97,10 @@
     }
     .fr{
         float: right;
+    }
+    .fr .el-icon-arrow-down {
+        font-size: 1px!important;
+        margin-left: 5px;
     }
 
 </style>
