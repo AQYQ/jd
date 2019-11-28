@@ -19,7 +19,7 @@
                     </span>
                     <span class="navList">
                         <el-breadcrumb separator="|" style="font-weight:100;line-height:30px;float: right;font-size: 12px;">
-                            <el-breadcrumb-item v-for="(item,index) in navList" > 
+                            <el-breadcrumb-item v-for="(item,index) in navList" >
                                 <span class="paddingClass" 
                                           :class="overIndex == index && index == 2 ? 'bgColor' : overIndex == index && index == 4 ? 'bgColor' :
                                           overIndex == index && index == 5 ? 'bgColor' : overIndex == index && index == 6 ? 'bgColor' :''">
@@ -44,16 +44,11 @@
     .paddingClass{
         padding: 0 3px;
     }
-    span{
-        display: inline-block;
-    }
     .bgColor{
         background-color: white;
-        display: inline-block;
         height: 30px;
     }
     .overColor{
-        display: inline-block;
         color: red;
     }
     .navList:hover{
@@ -99,7 +94,6 @@
         float: right;
     }
     .fr .el-icon-arrow-down {
-        font-size: 1px!important;
         margin-left: 5px;
     }
 
