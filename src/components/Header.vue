@@ -37,20 +37,9 @@
                                   </i>
                                   <div class="PurchaseBox" v-if="index == 4 &&  overBgIndex == index" @mouseleave="hidPurchaseTable">
                                       <table class="PurchaseTable" >
-                                          <tr>
-                                              <td>
-                                                  企业购
-                                              </td>
-                                              <td>
-                                                  商用场景馆
-                                              </td>
-                                          </tr>
-                                          <tr>
-                                              <td>
-                                                  工业品
-                                              </td>
-                                              <td>
-                                                  礼品卡
+                                          <tr v-for="(item,index) in PurchaseTable">
+                                              <td v-for="(ite,inde) in item.PurchaseTd">
+                                                 {{ite}}
                                               </td>
                                           </tr>
                                       </table>
@@ -159,7 +148,6 @@
     }
     .fr{
         float: right;
-        margin-right: 20px;
     }
     .fr .el-icon-arrow-down {
         padding-left: 5px;
@@ -183,6 +171,8 @@
                 overIndex:-1,
                 overBgIndex:-1,
                 Purchasebool:false,
+                PurchaseTable:[{PurchaseTd:['企业购','商用场景馆']},
+                              {PurchaseTd:['工业品','礼品卡']}],
             }
         },
         methods:{
