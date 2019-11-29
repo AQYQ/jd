@@ -1,7 +1,7 @@
 <template>
     <div id="header">
         <div class="w">
-            <div id="logo" class="logo">
+            <div id="logo" class="logo" @mouseenter="mouthenterFn" @mouseleave="mouseleaveFn">
                 <h1 class="logo_tit">
                     <a href="//www.jd.com" class="logo_tit_lk">京东</a>
                 </h1>
@@ -10,7 +10,7 @@
                     class="logo_scene logo_scene_hide" 
                     aria-label="JOY寻宝 经典美味零食"
                 >
-                    <div class="logo_scene_img" style="background-image: url('../../public/images/logofoode.gif')"></div>
+                    <div class="logo_scene_img" style="background-image: url('../../public/images/logofood.gif')"></div>
                     <span class="logo_scene_text" style="color: rgb(155, 120, 83);">经典美味零食</span>
                     <span class="logo_scene_btn" style="color: rgb(155, 120, 83); background-color: rgb(255, 255, 255);">去看看</span>
                 </a>
@@ -65,6 +65,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    left: 0;
     z-index: 1;
     text-align: center;
 }
@@ -115,6 +116,7 @@
 }
 </style>
 <script>
+import $ from 'jquery';
 export default {
     data(){
         return{
@@ -122,7 +124,14 @@ export default {
         }
     },
     methods:{
-        // $('.')
+        mouthenterFn(){
+            $(".logo_tit").fadeOut(100);
+            $(".logo_scene").fadeIn(100);
+        },
+        mouseleaveFn(){
+            $(".logo_tit").fadeIn(100);
+            $(".logo_scene").fadeOut(100);
+        }
     }
 }
 </script>
