@@ -153,6 +153,12 @@
     .fr .el-icon-arrow-down {
         padding-left: 5px;
     }
+    .el-breadcrumb__item {
+        line-height: 31px;
+    }
+    .navList .el-breadcrumb__separator{
+        font-weight: 100;
+    }
 
 </style>
 <script>

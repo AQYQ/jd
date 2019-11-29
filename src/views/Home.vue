@@ -1,6 +1,7 @@
 <template>
     <div>
         <Header></Header>
+        <Logoserch></Logoserch>
     </div>
 </template>
 
@@ -30,6 +31,7 @@ em, i {
 
 <script>
 import Header from '../components/Header.vue';
+import Logoserch from '../components/Logoserch.vue';
 export default {
     data(){
         return{
@@ -38,6 +40,8 @@ export default {
     },
     components:{
         Header,
+        Logoserch,
+
 
     }
     
