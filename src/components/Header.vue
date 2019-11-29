@@ -148,7 +148,6 @@
     }
     .fr{
         float: right;
-        margin-right: 20px;
     }
     .fr .el-icon-arrow-down {
         padding-left: 5px;
