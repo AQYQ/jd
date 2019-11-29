@@ -17,12 +17,12 @@
                             免费注册
                         </router-link>
                     </span>
-                    <span class="navList">
+                    <span class="navList" @mouseleave="backBgColor()">
                         <el-breadcrumb separator="|" style="font-weight:100;line-height:34px;float: right;font-size: 12px;">
                             <el-breadcrumb-item v-for="(item,index) in navList" > 
                                 <p  @mouseover="changeColorBg($event,index)" 
                                     class="boxP"
-                                    @mouseleave="backBgColor(index)"
+                                    
                                     :class="overBgIndex == index && index == 2 ? 'bgColor' : overBgIndex == index && index == 4 ? 'bgColor' :
                                     overBgIndex == index && index == 5 ? 'bgColor' : overBgIndex == index && index == 6 ? 'bgColor' :''">
                                     <span class="paddingClass" 
@@ -35,11 +35,14 @@
                                   <i class="el-icon-arrow-down" 
                                   v-if="index == 2 || index == 4 || index == 5 || index == 6 ">
                                   </i>
-                                  <div class="PurchaseBox" v-if="index == 4 &&  overBgIndex == index" @mouseleave="hidPurchaseTable">
+                                  <div class="PurchaseBox" v-if="index == 4 && overBgIndex == 4" 
+                                  @mouseenter="enterPur" @mouseout="outPur">
                                       <table class="PurchaseTable" >
                                           <tr v-for="(item,index) in PurchaseTable">
-                                              <td v-for="(ite,inde) in item.PurchaseTd">
-                                                 {{ite}}
+                                              <td v-for="(ite,inde) in item.PurchaseTd" class="PurchaseTd">
+                                                     <router-link :to="{ path: '/' }" style="font-weight: 100"> 
+                                                        <span class="PurchaseTdSpan">{{ite}} </span>
+                                                    </router-link>
                                               </td>
                                           </tr>
                                       </table>
@@ -61,6 +64,9 @@
         box-sizing: border-box;
     }
     /* Purchase采购 */
+    .PurchaseTdSpan:hover{
+        color: red;
+    }
     .boxP{
         display: inline-block;
         height: 32px;
@@ -69,7 +75,7 @@
     }
     .PurchaseBox{
         position: absolute;
-        bottom: -85px;
+        bottom: -88px;
         left: -1px;
         text-align: left;
     }
@@ -110,6 +116,9 @@
     .navList:hover{
         cursor: pointer;
     }
+    .navList{
+        z-index: 999;
+    }
     .link-login{
         font-size: 12px;
         margin-right: 3px;
@@ -138,6 +147,8 @@
         color: #999;
         width: 1190px;
         margin: auto;
+        position: relative;
+        z-index: 10000;
     }
     .fl, #shortcut li{
         line-height: 34px;
@@ -167,49 +178,49 @@
     export default {
         data(){
             return{
-                activeIndex: '1',
+                // 导航列表
                 navList:['','我的订单','我的京东','京东会员','企业采购','客户服务','网站导航','手机京东'],
+                // 默认的鼠标虚浮第几个，改变字体颜色 不可取第五六七个
                 overIndex:-1,
+                // 默认悬浮改变背景第几个
                 overBgIndex:-1,
+                // 企业购列表是否显示
                 Purchasebool:false,
-                PurchaseTable:[{PurchaseTd:['企业购','商用场景馆']},
-                              {PurchaseTd:['工业品','礼品卡']}],
+                // 企业购列表
+                PurchaseTable:
+                [{PurchaseTd:['企业购','商用场景馆']},
+                 {PurchaseTd:['工业品','礼品卡']}],
             }
         },
         methods:{
-            hidPurchaseTable(){
-                this.overIndex = -1;
+            enterPur(){
+                this.Purchasebool = true;
             },
+            outPur(){
+                this.Purchasebool = false;
+            }
+            ,
             getCurrentCity(){
-                console.log(getCurrentCityName(),'getCurrentCityName');
                 this.$store.state.city || getCurrentCityName().then((city) =>{
-                    console.log(city,'city');
                     city =city.slice(0,city.length-1);
                     this.$store.commit("commitCity",city)
                 })
             },
             changeColor(e,index){
                 this.overIndex = index;
-                if(index == 4){
-                    this.Purchasebool = true;
-                }else{
-                    this.Purchasebool = false;
-                }
-            },
-            changeColorBg(e,index){
-                // this.overIndex = -1;
-                this.overBgIndex = index;
             },
             backColor(index){
-                if(index == 4){
-                    this.overIndex = 4;
-                    this.Purchasebool = true;
-                }else{
-                    this.overIndex = -1;
-                }
+                this.overIndex = -1;
             },
-            backBgColor(index){
-                this.overBgIndex = -1;
+            changeColorBg(e,index){
+                this.overBgIndex = index;
+            },
+            backBgColor(){
+                    if(this.Purchasebool == true && this.overBgIndex ==4){
+                       
+                    }else{
+                        this.overBgIndex = -1;
+                    }
             }
         },
         created(){
