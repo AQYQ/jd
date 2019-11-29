@@ -20,38 +20,43 @@
                     <span class="navList">
                         <el-breadcrumb separator="|" style="font-weight:100;line-height:34px;float: right;font-size: 12px;">
                             <el-breadcrumb-item v-for="(item,index) in navList" > 
-                                <span class="paddingClass" 
-                                          :class="overIndex == index && index == 2 ? 'bgColor' : overIndex == index && index == 4 ? 'bgColor' :
-                                          overIndex == index && index == 5 ? 'bgColor' : overIndex == index && index == 6 ? 'bgColor' :''">
-                                    <span @mouseover="changeColor($event,index)" 
-                                          @mouseleave="backColor(index)"
-                                    :class="{overColor:overIndex == index && index != 5 && index != 6 && index != 7}">
-                                    {{item}} 
-                                    </span>
-                                    <i class="el-icon-arrow-down"  @mouseover = "changeColor($event,index)" @mouseleave="backColor(index)"
-                                    v-if="index == 2 || index == 4 || index == 5 || index == 6 ">
-                                    </i>
-                                    <div class="PurchaseBox" v-if="index == 4 && overIndex == index || Purchasebool == true && overIndex == index ">
-                                        <table class="PurchaseTable">
-                                            <tr>
-                                                <td>
-                                                    企业购
-                                                </td>
-                                                <td>
-                                                    商用场景馆
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    工业品
-                                                </td>
-                                                <td>
-                                                    礼品卡
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </span>
+                                <p  @mouseover="changeColorBg($event,index)" 
+                                    class="boxP"
+                                    @mouseleave="backBgColor(index)"
+                                    :class="overBgIndex == index && index == 2 ? 'bgColor' : overBgIndex == index && index == 4 ? 'bgColor' :
+                                    overBgIndex == index && index == 5 ? 'bgColor' : overBgIndex == index && index == 6 ? 'bgColor' :''">
+                                    <span class="paddingClass" 
+                                       >
+                                  <span @mouseover="changeColor($event,index)" 
+                                        @mouseleave="backColor(index)"
+                                  :class="{overColor:overIndex == index && index != 5 && index != 6 && index != 7}">
+                                  {{item}} 
+                                  </span>
+                                  <i class="el-icon-arrow-down" 
+                                  v-if="index == 2 || index == 4 || index == 5 || index == 6 ">
+                                  </i>
+                                  <div class="PurchaseBox" v-if="index == 4 &&  overBgIndex == index" @mouseleave="hidPurchaseTable">
+                                      <table class="PurchaseTable" >
+                                          <tr>
+                                              <td>
+                                                  企业购
+                                              </td>
+                                              <td>
+                                                  商用场景馆
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td>
+                                                  工业品
+                                              </td>
+                                              <td>
+                                                  礼品卡
+                                              </td>
+                                          </tr>
+                                      </table>
+                                  </div>
+                              </span>
+                                </p>
                             </el-breadcrumb-item>
                         </el-breadcrumb>
                     </span>
@@ -61,11 +66,23 @@
     </div>
 </template>
 <style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
     /* Purchase采购 */
+    .boxP{
+        display: inline-block;
+        height: 32px;
+        border-bottom: none;
+        border: 1px solid rgba(255,255,255,0);
+    }
     .PurchaseBox{
         position: absolute;
-        bottom: -80px;
-        left: 0px;
+        bottom: -85px;
+        left: -1px;
+        text-align: left;
     }
     .PurchaseTable{
         width: 150px;
@@ -73,7 +90,6 @@
         height: 80px;
         border: 1px solid darkgray;
         border-top: none;
-        box-sizing: border-box;
     }
     .PurchaseTable tr td:nth-child(1){
         width: 40%;
@@ -83,14 +99,21 @@
         width: 60%;
         height: 50%;
     }
-    .paddingClass{
+    .boxP>.paddingClass{
         color: darkgray;
         position: relative;
         padding: 0 4px;
     }
+    .boxP>.paddingClass:first-of-type{
+        color: darkgray;
+        position: relative;
+        padding: 0 1px;
+    }
     .bgColor{
         background-color: white;
-        height: 30px;
+        height: 32px;
+        border: 1px solid darkgray;
+        border-bottom: none;
     }
     .overColor{
         color: red;
@@ -115,7 +138,6 @@
     }
     .style-red{
         color: red;
-        margin-right: 4px;
     }
     #shortcut{
         border-bottom: 1px solid #ddd;
@@ -140,7 +162,7 @@
         margin-right: 20px;
     }
     .fr .el-icon-arrow-down {
-        margin-left: 5px;
+        padding-left: 5px;
     }
 
 </style>
@@ -153,10 +175,14 @@
                 activeIndex: '1',
                 navList:['','我的订单','我的京东','京东会员','企业采购','客户服务','网站导航','手机京东'],
                 overIndex:-1,
+                overBgIndex:-1,
                 Purchasebool:false,
             }
         },
         methods:{
+            hidPurchaseTable(){
+                this.overIndex = -1;
+            },
             getCurrentCity(){
                 console.log(getCurrentCityName(),'getCurrentCityName');
                 this.$store.state.city || getCurrentCityName().then((city) =>{
@@ -173,6 +199,10 @@
                     this.Purchasebool = false;
                 }
             },
+            changeColorBg(e,index){
+                // this.overIndex = -1;
+                this.overBgIndex = index;
+            },
             backColor(index){
                 if(index == 4){
                     this.overIndex = 4;
@@ -180,6 +210,9 @@
                 }else{
                     this.overIndex = -1;
                 }
+            },
+            backBgColor(index){
+                this.overBgIndex = -1;
             }
         },
         created(){
